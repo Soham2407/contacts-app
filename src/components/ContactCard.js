@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import pic from "../images/pic.png";
 
 const ContactCard = ({ contact, getId }) => {
@@ -9,8 +10,17 @@ const ContactCard = ({ contact, getId }) => {
           <div className="d-flex">
             <img src={pic} alt="avatar" style={{ width: "60px" }} />
             <div>
-              <h5 className="card-title">{contact.name}</h5>
-              <h6 className="card-subtitle mb-2 text-muted">{contact.email}</h6>
+              <Link
+                to={{
+                  pathname: `/details/${contact.id}`,
+                  state: { contact: contact },
+                }}
+              >
+                <h5 className="card-title">{contact.name}</h5>
+                <h6 className="card-subtitle mb-2 text-muted">
+                  {contact.email}
+                </h6>
+              </Link>
             </div>
           </div>
           <button

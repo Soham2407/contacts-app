@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
+import { Switch, Route } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import AddContact from "./components/AddContact";
+import ContactDetail from "./components/ContactDetail";
 import ContactList from "./components/ContactList";
 import Header from "./components/Header";
 
@@ -32,8 +34,29 @@ function App() {
   return (
     <div className="container">
       <Header />
-      <AddContact addContactHandler={addContactHandler} />
-      <ContactList contacts={contacts} deleteContact={deleteContact} />
+      <Switch>
+        <Route
+          exact
+          path="/"
+          render={(props) => (
+            <ContactList
+              {...props}
+              contacts={contacts}
+              deleteContact={deleteContact}
+            />
+          )}
+        />
+
+        <Route
+          exact
+          path="/add"
+          render={(props) => (
+            <AddContact {...props} addContactHandler={addContactHandler} />
+          )}
+        />
+
+        <Route path="/details/:id" component={ContactDetail} />
+      </Switch>
     </div>
   );
 }

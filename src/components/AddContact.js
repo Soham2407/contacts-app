@@ -16,6 +16,7 @@ class AddContact extends React.Component {
       name: "",
       email: "",
     });
+    this.props.history.push("/");
   };
 
   render() {
