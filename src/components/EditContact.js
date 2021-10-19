@@ -1,17 +1,19 @@
 import React from "react";
 
-class AddContact extends React.Component {
+class EditContact extends React.Component {
   constructor(props) {
     super(props);
+    const { id, name, email } = props.location.state.contact;
     this.state = {
-      name: "",
-      email: "",
+      id: id,
+      name: name,
+      email: email,
     };
   }
 
-  addHandler = (e) => {
+  updateHandler = (e) => {
     e.preventDefault();
-    this.props.addContactHandler(this.state);
+    this.props.updateContactHandler(this.state);
     this.setState({
       name: "",
       email: "",
@@ -22,8 +24,8 @@ class AddContact extends React.Component {
   render() {
     return (
       <div>
-        <h2>Add Contact</h2>
-        <form onSubmit={this.addHandler}>
+        <h2>Edit Contact</h2>
+        <form onSubmit={this.updateHandler}>
           <div className="mb-3">
             <label className="form-label">Name</label>
             <input
@@ -45,7 +47,7 @@ class AddContact extends React.Component {
             />
           </div>
           <button type="submit" className="btn btn-primary">
-            Submit
+            Update
           </button>
         </form>
       </div>
@@ -53,4 +55,4 @@ class AddContact extends React.Component {
   }
 }
 
-export default AddContact;
+export default EditContact;

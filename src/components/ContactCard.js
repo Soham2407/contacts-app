@@ -23,14 +23,25 @@ const ContactCard = ({ contact, getId }) => {
               </Link>
             </div>
           </div>
-          <button
-            className="btn btn-danger"
-            onClick={() => {
-              getId(contact.id);
-            }}
-          >
-            Delete
-          </button>
+          <div>
+            <button
+              className="btn btn-danger me-3"
+              onClick={() => {
+                getId(contact.id);
+              }}
+            >
+              Delete
+            </button>
+
+            <Link
+              to={{
+                pathname: `/edit`,
+                state: { contact: contact },
+              }}
+            >
+              <button className="btn btn-primary">Edit</button>
+            </Link>
+          </div>
         </div>
       </div>
     </div>
