@@ -11,6 +11,25 @@ import Header from "./components/Header";
 function App() {
   const [contacts, setContacts] = useState([]);
 
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+
+  const onChangeHandler = (searchValue) => {
+    setSearchTerm(searchValue);
+
+    if (searchTerm !== "") {
+      const newContactList = contacts.filter((contact) => {
+        return Object.values(contact)
+          .join(" ")
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase());
+      });
+      setSearchResults(newContactList);
+    } else {
+      setSearchResults(contacts);
+    }
+  };
+
   // Retrived contacts
   const retrivedContacts = async () => {
     const response = await api.get("/contacts");
@@ -74,8 +93,10 @@ function App() {
           render={(props) => (
             <ContactList
               {...props}
-              contacts={contacts}
+              contacts={searchTerm.length < 1 ? contacts : searchResults}
               deleteContact={deleteContact}
+              onChangeHandler={onChangeHandler}
+              term={searchTerm}
             />
           )}
         />
